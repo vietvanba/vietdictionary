@@ -1,18 +1,26 @@
 package com.dictionary.VietDictionary.payload;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class SearchModel {
+@Document(indexName = "dictionary")
+public class SearchResponse {
+    @Id
     private String word;
-    Phonic us;
-    Phonic uk;
+    private String partOfSpeech;
+    private Phonic us = new Phonic();
+    private Phonic uk = new Phonic();
+    private List<Sense> senses = new ArrayList<>();
+    private List<String> images = new ArrayList<>();
 }

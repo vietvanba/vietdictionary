@@ -6,13 +6,17 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    elasticsearch:
+      cluster-nodes: localhost:9200
+      cluster-name: docker-cluster
 
 application:
   security:
@@ -21,3 +25,6 @@ application:
       expiration: 86400000 # a day
       refresh-token:
         expiration: 604800000 # 7 days
+pixabay:
+  api: https://api.pexels.com/v1/search?query=
+  key: r7Dcbc9pPanI7UmwxvMngcFNLqX0XgECNQJa95ybJD2qmzHm8Ldrh3my

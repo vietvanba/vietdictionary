@@ -1,6 +1,7 @@
 package com.dictionary.VietDictionary.service;
 
 import com.dictionary.VietDictionary.auth.JwtService;
+import com.dictionary.VietDictionary.entity.Role;
 import com.dictionary.VietDictionary.entity.Token;
 import com.dictionary.VietDictionary.entity.TokenType;
 import com.dictionary.VietDictionary.entity.User;
@@ -36,13 +37,18 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .role(request.getRole()==null? Role.USER:request.getRole())
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
+                .userId(user.getId())
+                .firstName(user.getFirstname())
+                .lastName(user.getLastname())
+                .email(user.getEmail())
+                .role(user.getRole().name())
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
