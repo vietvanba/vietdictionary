@@ -13,10 +13,10 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-  data:
-    elasticsearch:
-      cluster-nodes: localhost:9200
-      cluster-name: docker-cluster
+  elasticsearch:
+    uris: http://localhost:9200
+    username: elastic
+    password: Mkx6d1@667
 
 application:
   security:
