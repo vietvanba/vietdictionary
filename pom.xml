@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dictionary</groupId>
-	<artifactId>VietDictionary</artifactId>
+	<artifactId>authentication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>VietDictionary</name>
+	<name>authentication-service</name>
 	<description>Project dictionary</description>
 	<properties>
 		<java.version>17</java.version>
