@@ -37,7 +37,7 @@ public class AuthenticationService {
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole()==null? Role.USER:request.getRole())
+                .role(request.getRole() == null ? Role.USER : request.getRole())
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -126,5 +126,23 @@ public class AuthenticationService {
                 new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
             }
         }
+    }
+
+    public String getUsername(HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        String token;
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return null;
+        }
+        token = authHeader.substring(7);
+        if (!jwtService.isTokenExpired(token)) {
+            try {
+                return jwtService.extractUsername(token);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return null;
+
     }
 }
